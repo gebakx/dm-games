@@ -519,13 +519,14 @@ Reference: [_Behavior trees for AI: How they work_](https://www.gamasutra.com/bl
 
 # Examples II
 
-.center[![:scale 90%](figures/exbt4.png)]
+.center[![:scale 80%](figures/exbt4.png)]
 
 .footnote[[_Behavior trees for AI: How they work_](https://www.gamasutra.com/blogs/ChrisSimpson/20140717/221339/Behavior_trees_for_AI_How_they_work.php)]
 
 ## What about the Robber?
 
-- Exercise / homework: [Template for design BTs](figures/BTNodes.png), [a solution](figures/RobberBT.jpg)
+- Exercise / homework: <br>
+[template for design BTs](https://docs.google.com/drawings/d/1AL8468_iL_0V05oAynP8a-X-b91pZimXPGF9yRknIb8/edit) / [a solution](figures/btRobber.png)
 
 ---
 class: left, middle, inverse
@@ -728,7 +729,7 @@ Ex: “play game console” increases *happiness* but decreases *energy*
 
 - environment can generate or activate new available actions (.blue[smart objects])
 
-.footnote[.red[Source]: (Millington, 2019)]
+.footnote[.red[(Millington, 2019)]]
 
 ---
 
@@ -750,7 +751,7 @@ Action: Sleep-On-Sofa (Sleep − 2)
 
 - .blue[$-$] side effects, no timing information
 
-.footnote[.red[Source]: (Millington, 2019)]
+.footnote[.red[(Millington, 2019)]]
 
 --
 
@@ -785,7 +786,7 @@ Action: Visit-Bathroom (Bathroom − 4)
 Solution: Visit-Bathroom
 ```
 
-.footnote[.red[Source]: (Millington, 2019)]
+.footnote[.red[(Millington, 2019)]]
 
 ---
 
@@ -808,7 +809,7 @@ Action: Visit-Bathroom (Bathroom − 4) 15 minutes
 Solution: Eat-Snack
 ```
 
-.footnote[.red[Source]: (Millington, 2019)]
+.footnote[.red[(Millington, 2019)]]
 
 ---
 
@@ -853,24 +854,84 @@ class: left, middle, inverse
 
 # The need for planning
 
-The goal that an action promises to fulfill might be several steps away.
+### Example:
 
-It is possible that we pick a stupid decision because the agent cannot plan ahead.
-
+- Mage character
+  - 5 charges in its wand
+  - need for healing
+  - an ogre approaching him aggressively
+- plan
 ```
 Goal: Heal = 4
 Goal: Kill-Ogre = 3
-Action: Fireball (Kill-Ogre − 2) 3 energy-slots
-Action: Lesser-Healing (Heal − 2) 2 energy-slots
-Action: Greater-Healing (Heal − 4) 3 energy-slots
+Action: Fireball (Kill-Ogre − 2) 3 charges
+Action: Lesser-Healing (Heal − 2) 2 charges
+Action: Greater-Healing (Heal − 4) 3 charges
 ```
+
+```
+Best combination: Lesser-Healing + Fireball
+GOB solution: Greate-Healing
+```
+
+.blue[GOB is limited in its prediction, the situation needs to go some steps ahead!]
+
+.footnote[.red[(Millington, 2019)]]
+
 ---
 
-# GOAP x2
+# Goal Oriented Action Planning
+
+### Chaining actions
+
+- .blue[preconditions] for chaining actions
+
+- .blue[states] for satisfying preconditions
+
+- .blue[search algorithm] for selecting "best" branches <br>
+(each goal is the root of a tree)
+
+### Searching
+
+- .blue[BFS] <br>
+increasing the number of actions and goals it becomes quickly inefficient
+
+- .blue[A*] <br>
+perhaps distance heuristic cannot be formulated
+
+- .blue[Dijkstra] <br>
+...
 
 ---
 
 # GOAP Design
+
+```
+Goal: Heal = 4
+Goal: Kill-Ogre = 3
+Action: Fireball (Kill-Ogre − 2) 3 charges
+Action: Lesser-Healing (Heal − 2) 2 charges
+Action: Greater-Healing (Heal − 4) 3 charges
+```
+
+[Google Canvas Template](https://docs.google.com/drawings/d/1Y_G0r7PG4WJCawgUo__OhSGEK7Rr18Lpbzssqb53rI8/edit)
+
+![:scale 85%](figures/goapDesign.png)
+
+
+---
+
+# GOAP: Time
+
+![:scale 90%](figures/goapTime.png)
+
+---
+
+# Robber behaviour
+
+.blue[First approach]:
+
+![:scale 110%](figures/goapRobber.png)
 
 ---
 class: left, middle, inverse
@@ -899,13 +960,157 @@ class: left, middle, inverse
 
 ---
 
-0. Explicació amb video
+# AI Planner
 
-1. Disseny GOAP Robber lineal
+The AI Planner package can generate optimal plans for use in agent AI
 
-2. Implementació
+![:scale 80%](figures/AIPlanner.png)
 
-3. Modificació per bucle wander + approach
+- .red[[Reference](https://docs.unity3d.com/Packages/com.unity.ai.planner@0.2/manual/index.html)]
+
+- it contains a plan visualizer
+
+---
+
+# Robber: Traits
+
+.cols5050[
+.col1[
+### Traits
+- `Create - AI - Trait`
+- fundamental data (game state)
+- quality of objects (components)
+- contains attributes 
+
+### Robber
+- .blue[Valuable] (Treasure)
+- .blue[Cop]: <br>
+farAway (false)
+- .blue[Robber]:<br>
+ready2steal (false)
+stolen (false)
+
+### Enumerations
+
+- for .blue[Enum Definition] in traits
+]
+.col2[
+![](figures/traitsRobber.png)
+
+![](figures/atrsRobber.png)
+]]
+
+---
+
+# Robber: Actions I
+
+.cols5050[
+.col1[
+### Actions
+- `Create - AI - Planner - Action Definition`
+- planner potential decisions
+- executes nothing
+- Properties: <br>
+name, parameters, <br>
+preconditions, effects, <br> 
+cost / reward
+
+### Robber
+.blue[Wander]
+- parameters: cop, robber, treasure
+- effects: `farAway = true`
+]
+.col2[
+![:scale 80%](figures/wanderRobber.png)
+]]
+
+---
+
+# Robber: Actions II
+
+.cols5050[
+.col1[
+### Robber
+.blue[Approach]
+- parameters: cop, robber, treasure
+- precondition: `farAway == true`
+- effect: `ready2steal = true`
+
+.blue[Steal]
+- parameters: robber, treasure
+- precondition: `ready2steal == true`
+- effect: `stolen = true`, <br>
+`treasure` removed
+]
+.col2[
+![:scale 90%](figures/stealRobber.png)
+]]
+
+---
+
+# Robber: Plan
+
+.cols5050[
+.col1[
+### Plan
+`Create - AI - Planner - Plan Definition`
+
+![:scale 90%](figures/planRobber.png)
+]
+.col2[
+### Termination criteria
+`Create - AI - Planner - State Termination Definition`
+
+![:scale 90%](figures/theEndRobber.png)
+]]
+
+---
+
+# Robber: Configuring the Scene
+
+.cols5050[
+.col1[
+1. `Add Component - TraitComponent` to the GameObjects
+
+2. `Add Component - DecisionController` <br>
+to the AI agent GameObject
+
+  - Add the plan definition
+
+  - Add the world objects <br>
+`with traits`
+
+3. Create and link the `callbacks`...
+
+]
+.col2[
+![:scale 90%](figures/goRobber.png)
+]]
+
+---
+
+# Robber: Action Callbacks
+
+.cols5050[
+.col1[
+
+- *ActionDefinitions* components are .blue[not] applied to the scene
+
+- It is the Action Callbacks goal
+
+- .blue[Coroutine] is the choice for actions that execute over multiple frames
+
+### Robber
+
+- [C# view](codes/plannerCallbacks.html).red[*]
+- [C# code](codes/plannerCallbacks.cs)
+
+]
+.col2[
+![:scale 90%](figures/actionsPlanRobber.png)
+]]
+
+.footnote[.red[*] made with .red[[hightlighting](https://tohtml.com/csharp/)]]
 
 ---
 class: left, middle, inverse
@@ -925,17 +1130,6 @@ class: left, middle, inverse
 * .cyan[Rule-Based Systems]
 
 * References
-
----
-
-1. Teoria llibre
-
-2. Implementació exemple amb clojure sense unity
-
-3. implementar en Haskell fets + regles
-
-4. Implementació Clojure + arcadia <br>
-Pel final de curs (després de ML)
 
 ---
 class: left, middle, inverse
@@ -966,6 +1160,8 @@ class: left, middle, inverse
 
 - Chris Simpson. [_Behavior trees for AI: How they work_](https://www.gamasutra.com/blogs/ChrisSimpson/20140717/221339/Behavior_trees_for_AI_How_they_work.php). Gamasutra, 2014.
 
+- Unity Technologies. [AI Planner](https://docs.unity3d.com/Packages/com.unity.ai.planner@0.2/manual/index.html). 2020.
+
 - Damian Isla. [_Handling Complexity in the Halo 2 AI_](https://www.gamasutra.com/view/feature/130663/gdc_2005_proceeding_handling_.php). GDC, 2005.
 
 - Ricard Pillosu. _Previous year slides of the AI course_, 2019. 
@@ -976,6 +1172,12 @@ class: left, middle, inverse
 
 - [Unite 2014 - Practical AI in Unity](https://www.youtube.com/watch?v=hhByGZZbcOc), 59:44, 2014. (HFSM, BT) [Github](https://github.com/AngryAnt/PracticalAIinUnity)
 
-- AI Rules i/o arcadia/clojure (teoria lisp i intèrpret i lab amb asset)
+- AI Planner
+    1. Modificació per bucle wander + approach
 
-- Rule-Based Systems al final de tot. Clojure. Si dóna temps.
+- Rules
+    1. Teoria llibre
+    2. Implementació exemple llibre amb clojure sense unity
+    3. Implementació Robber Clojure + arcadia 
+    4. Pel final de curs (després de ML)
+
