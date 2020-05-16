@@ -1,0 +1,27 @@
+
+<pre style="color:#000000;background:#ffffff;"><span style="color:#800000; font-weight:bold; ">using</span> UnityEngine<span style="color:#800080; ">;</span>
+<span style="color:#800000; font-weight:bold; ">using</span> Pada1<span style="color:#808030; ">.</span>BBCore<span style="color:#800080; ">;</span>           <span style="color:#696969; ">// Code attributes</span>
+<span style="color:#800000; font-weight:bold; ">using</span> Pada1<span style="color:#808030; ">.</span>BBCore<span style="color:#808030; ">.</span>Tasks<span style="color:#800080; ">;</span>     <span style="color:#696969; ">// TaskStatus</span>
+<span style="color:#800000; font-weight:bold; ">using</span> Pada1<span style="color:#808030; ">.</span>BBCore<span style="color:#808030; ">.</span>Framework<span style="color:#800080; ">;</span> <span style="color:#696969; ">// BasePrimitiveAction</span>
+
+<span style="color:#808030; ">[</span>Action<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">MyActions/Hide</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#808030; ">]</span>
+<span style="color:#808030; ">[</span>Help<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">Get the Vector3 for hiding.</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#808030; ">]</span>
+<span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">class</span> HideBB <span style="color:#808030; ">:</span> BasePrimitiveAction
+<span style="color:#800080; ">{</span>
+    <span style="color:#808030; ">[</span>InParam<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">game object</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#808030; ">]</span>
+    <span style="color:#808030; ">[</span>Help<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">Game object to add the component, if no assigned the component is added to the game object of this behavior</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#808030; ">]</span>
+    <span style="color:#800000; font-weight:bold; ">public</span> GameObject targetGameobject<span style="color:#800080; ">;</span>
+
+    <span style="color:#808030; ">[</span>OutParam<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">hide</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#808030; ">]</span>
+    <span style="color:#808030; ">[</span>Help<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">Vector3 for higing.</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#808030; ">]</span>
+    <span style="color:#800000; font-weight:bold; ">public</span> Vector3 hide<span style="color:#800080; ">;</span>
+
+    <span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">override</span> TaskStatus OnUpdate<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span>
+    <span style="color:#800080; ">{</span>
+        Moves moves <span style="color:#808030; ">=</span> targetGameobject<span style="color:#808030; ">.</span>GetComponent<span style="color:#808030; ">&lt;</span>Moves<span style="color:#808030; ">&gt;</span><span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span> 
+        hide <span style="color:#808030; ">=</span> moves<span style="color:#808030; ">.</span>HideValue<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+        <span style="color:#800000; font-weight:bold; ">return</span> TaskStatus<span style="color:#808030; ">.</span>COMPLETED<span style="color:#800080; ">;</span>
+    <span style="color:#800080; ">}</span>
+<span style="color:#800080; ">}</span>
+</pre>
+

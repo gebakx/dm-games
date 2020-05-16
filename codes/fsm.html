@@ -1,0 +1,86 @@
+<pre style="color:#000000;background:#ffffff;">﻿using UnityEngine<span style="color:#800080; ">;</span>
+<span style="color:#800000; font-weight:bold; ">using</span> System<span style="color:#808030; ">.</span>Collections<span style="color:#800080; ">;</span>
+
+<span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">class</span> FSM <span style="color:#808030; ">:</span> MonoBehaviour
+<span style="color:#800080; ">{</span>
+    <span style="color:#800000; font-weight:bold; ">public</span> Transform cop<span style="color:#800080; ">;</span>
+    <span style="color:#800000; font-weight:bold; ">public</span> GameObject treasure<span style="color:#800080; ">;</span>
+    <span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">float</span> dist2Steal <span style="color:#808030; ">=</span> 10f<span style="color:#800080; ">;</span>
+    Moves moves<span style="color:#800080; ">;</span>
+    UnityEngine<span style="color:#808030; ">.</span>AI<span style="color:#808030; ">.</span>NavMeshAgent agent<span style="color:#800080; ">;</span>
+
+    <span style="color:#800000; font-weight:bold; ">private</span> WaitForSeconds wait <span style="color:#808030; ">=</span> <span style="color:#800000; font-weight:bold; ">new</span> WaitForSeconds<span style="color:#808030; ">(</span><span style="color:#008000; ">0.05</span><span style="color:#006600; ">f</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span> <span style="color:#696969; ">// == 1/20</span>
+    <span style="color:#800000; font-weight:bold; ">delegate</span> IEnumerator State<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+    <span style="color:#800000; font-weight:bold; ">private</span> State state<span style="color:#800080; ">;</span>
+
+    IEnumerator Start<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span>
+    <span style="color:#800080; ">{</span>
+        moves <span style="color:#808030; ">=</span> gameObject<span style="color:#808030; ">.</span>GetComponent<span style="color:#808030; ">&lt;</span>Moves<span style="color:#808030; ">&gt;</span><span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+        agent <span style="color:#808030; ">=</span> gameObject<span style="color:#808030; ">.</span>GetComponent<span style="color:#808030; ">&lt;</span>UnityEngine<span style="color:#808030; ">.</span>AI<span style="color:#808030; ">.</span>NavMeshAgent<span style="color:#808030; ">&gt;</span><span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+
+        <span style="color:#800000; font-weight:bold; ">yield return</span> wait<span style="color:#800080; ">;</span>
+
+        state <span style="color:#808030; ">=</span> Wander<span style="color:#800080; ">;</span>
+
+        <span style="color:#800000; font-weight:bold; ">while</span> <span style="color:#808030; ">(</span>enabled<span style="color:#808030; ">)</span>
+            <span style="color:#800000; font-weight:bold; ">yield return</span> StartCoroutine<span style="color:#808030; ">(</span>state<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+    <span style="color:#800080; ">}</span>
+
+    IEnumerator Wander<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span>
+    <span style="color:#800080; ">{</span>
+        Debug<span style="color:#808030; ">.</span>Log<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">Wander state</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+
+        <span style="color:#800000; font-weight:bold; ">while</span> <span style="color:#808030; ">(</span>Vector3<span style="color:#808030; ">.</span>Distance<span style="color:#808030; ">(</span>cop<span style="color:#808030; ">.</span>position<span style="color:#808030; ">,</span> treasure<span style="color:#808030; ">.</span>transform<span style="color:#808030; ">.</span>position<span style="color:#808030; ">)</span> <span style="color:#808030; ">&lt;</span> dist2Steal<span style="color:#808030; ">)</span>
+        <span style="color:#800080; ">{</span>
+            moves<span style="color:#808030; ">.</span>Wander<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+            <span style="color:#800000; font-weight:bold; ">yield return</span> wait<span style="color:#800080; ">;</span>
+        <span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+
+        state <span style="color:#808030; ">=</span> Approaching<span style="color:#800080; ">;</span>
+    <span style="color:#800080; ">}</span>
+
+    IEnumerator Approaching<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span>
+    <span style="color:#800080; ">{</span>
+        Debug<span style="color:#808030; ">.</span>Log<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">Approaching state</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+
+        agent<span style="color:#808030; ">.</span>speed <span style="color:#808030; ">=</span> 2f<span style="color:#800080; ">;</span>        
+        moves<span style="color:#808030; ">.</span>Seek<span style="color:#808030; ">(</span>treasure<span style="color:#808030; ">.</span>transform<span style="color:#808030; ">.</span>position<span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+
+        <span style="color:#800000; font-weight:bold; ">bool</span> stolen <span style="color:#808030; ">=</span> <span style="color:#800000; font-weight:bold; ">false</span><span style="color:#800080; ">;</span>
+        <span style="color:#800000; font-weight:bold; ">while</span> <span style="color:#808030; ">(</span>Vector3<span style="color:#808030; ">.</span>Distance<span style="color:#808030; ">(</span>cop<span style="color:#808030; ">.</span>position<span style="color:#808030; ">,</span> treasure<span style="color:#808030; ">.</span>transform<span style="color:#808030; ">.</span>position<span style="color:#808030; ">)</span> <span style="color:#808030; ">&gt;</span> dist2Steal<span style="color:#808030; ">)</span>
+        <span style="color:#800080; ">{</span>
+            <span style="color:#800000; font-weight:bold; ">if</span> <span style="color:#808030; ">(</span>Vector3<span style="color:#808030; ">.</span>Distance<span style="color:#808030; ">(</span>treasure<span style="color:#808030; ">.</span>transform<span style="color:#808030; ">.</span>position<span style="color:#808030; ">,</span> transform<span style="color:#808030; ">.</span>position<span style="color:#808030; ">)</span> <span style="color:#808030; ">&lt;</span> 2f<span style="color:#808030; ">)</span>
+            <span style="color:#800080; ">{</span>
+                stolen <span style="color:#808030; ">=</span> <span style="color:#800000; font-weight:bold; ">true</span><span style="color:#800080; ">;</span>
+                <span style="color:#800000; font-weight:bold; ">break</span><span style="color:#800080; ">;</span>
+            <span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+            <span style="color:#800000; font-weight:bold; ">yield return</span> wait<span style="color:#800080; ">;</span>
+        <span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+
+        <span style="color:#800000; font-weight:bold; ">if</span> <span style="color:#808030; ">(</span>stolen<span style="color:#808030; ">)</span>
+        <span style="color:#800080; ">{</span>
+            treasure<span style="color:#808030; ">.</span>GetComponent<span style="color:#808030; ">&lt;</span>Renderer<span style="color:#808030; ">&gt;</span><span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#808030; ">.</span>enabled <span style="color:#808030; ">=</span> <span style="color:#800000; font-weight:bold; ">false</span><span style="color:#800080; ">;</span>
+            Debug<span style="color:#808030; ">.</span>Log<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">Stolen</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+            state <span style="color:#808030; ">=</span> Hiding<span style="color:#800080; ">;</span>
+        <span style="color:#800080; ">}</span>
+        <span style="color:#800000; font-weight:bold; ">else</span>
+        <span style="color:#800080; ">{</span>
+            agent<span style="color:#808030; ">.</span>speed <span style="color:#808030; ">=</span> 1f<span style="color:#800080; ">;</span>
+            state <span style="color:#808030; ">=</span> Wander<span style="color:#800080; ">;</span>
+        <span style="color:#800080; ">}</span>
+    <span style="color:#800080; ">}</span>
+
+
+    IEnumerator Hiding<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span>
+    <span style="color:#800080; ">{</span>
+        Debug<span style="color:#808030; ">.</span>Log<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">Hiding state</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+
+        <span style="color:#800000; font-weight:bold; ">while</span> <span style="color:#808030; ">(</span><span style="color:#800000; font-weight:bold; ">true</span><span style="color:#808030; ">)</span>
+        <span style="color:#800080; ">{</span>
+            moves<span style="color:#808030; ">.</span>Hide<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+            <span style="color:#800000; font-weight:bold; ">yield return</span> wait<span style="color:#800080; ">;</span>
+        <span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+    <span style="color:#800080; ">}</span>
+<span style="color:#800080; ">}</span>
+</pre>
+

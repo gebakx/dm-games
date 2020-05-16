@@ -1,0 +1,36 @@
+
+<pre style="color:#000000;background:#ffffff;">﻿using System<span style="color:#808030; ">.</span>Collections<span style="color:#800080; ">;</span>
+<span style="color:#800000; font-weight:bold; ">using</span> System<span style="color:#808030; ">.</span>Collections<span style="color:#808030; ">.</span>Generic<span style="color:#800080; ">;</span>
+<span style="color:#800000; font-weight:bold; ">using</span> UnityEngine<span style="color:#800080; ">;</span>
+
+<span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">class</span> Approaching <span style="color:#808030; ">:</span> StateMachineBehaviour
+<span style="color:#800080; ">{</span>
+    Moves moves<span style="color:#800080; ">;</span>
+    BlackBoard blackboard<span style="color:#800080; ">;</span> 
+
+    <span style="color:#800000; font-weight:bold; ">override</span> <span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">void</span> OnStateEnter<span style="color:#808030; ">(</span>Animator animator<span style="color:#808030; ">,</span> AnimatorStateInfo stateInfo<span style="color:#808030; ">,</span> <span style="color:#800000; font-weight:bold; ">int</span> layerIndex<span style="color:#808030; ">)</span>
+    <span style="color:#800080; ">{</span>
+        moves <span style="color:#808030; ">=</span> animator<span style="color:#808030; ">.</span>GetComponent<span style="color:#808030; ">&lt;</span>Moves<span style="color:#808030; ">&gt;</span><span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span> 
+        blackboard <span style="color:#808030; ">=</span> animator<span style="color:#808030; ">.</span>GetComponent<span style="color:#808030; ">&lt;</span>BlackBoard<span style="color:#808030; ">&gt;</span><span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>        
+        animator<span style="color:#808030; ">.</span>GetComponent<span style="color:#808030; ">&lt;</span>UnityEngine<span style="color:#808030; ">.</span>AI<span style="color:#808030; ">.</span>NavMeshAgent<span style="color:#808030; ">&gt;</span><span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#808030; ">.</span>speed <span style="color:#808030; ">=</span> 2f<span style="color:#800080; ">;</span>
+        moves<span style="color:#808030; ">.</span>Seek<span style="color:#808030; ">(</span>blackboard<span style="color:#808030; ">.</span>treasure<span style="color:#808030; ">.</span>transform<span style="color:#808030; ">.</span>position<span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+    <span style="color:#800080; ">}</span>
+
+    <span style="color:#800000; font-weight:bold; ">override</span> <span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">void</span> OnStateUpdate<span style="color:#808030; ">(</span>Animator animator<span style="color:#808030; ">,</span> AnimatorStateInfo stateInfo<span style="color:#808030; ">,</span> <span style="color:#800000; font-weight:bold; ">int</span> layerIndex<span style="color:#808030; ">)</span>
+    <span style="color:#800080; ">{</span>
+        <span style="color:#800000; font-weight:bold; ">if</span> <span style="color:#808030; ">(</span>Vector3<span style="color:#808030; ">.</span>Distance<span style="color:#808030; ">(</span>blackboard<span style="color:#808030; ">.</span>treasure<span style="color:#808030; ">.</span>transform<span style="color:#808030; ">.</span>position<span style="color:#808030; ">,</span> animator<span style="color:#808030; ">.</span>transform<span style="color:#808030; ">.</span>position<span style="color:#808030; ">)</span> <span style="color:#808030; ">&lt;</span> 2f<span style="color:#808030; ">)</span>
+        <span style="color:#800080; ">{</span>
+            blackboard<span style="color:#808030; ">.</span>treasure<span style="color:#808030; ">.</span>GetComponent<span style="color:#808030; ">&lt;</span>Renderer<span style="color:#808030; ">&gt;</span><span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#808030; ">.</span>enabled <span style="color:#808030; ">=</span> <span style="color:#800000; font-weight:bold; ">false</span><span style="color:#800080; ">;</span>
+            Debug<span style="color:#808030; ">.</span>Log<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">Stolen</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+            animator<span style="color:#808030; ">.</span>SetTrigger<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">stolen</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+        <span style="color:#800080; ">}</span>
+        <span style="color:#800000; font-weight:bold; ">else</span>
+            <span style="color:#800000; font-weight:bold; ">if</span> <span style="color:#808030; ">(</span>Vector3<span style="color:#808030; ">.</span>Distance<span style="color:#808030; ">(</span>blackboard<span style="color:#808030; ">.</span>cop<span style="color:#808030; ">.</span>position<span style="color:#808030; ">,</span> blackboard<span style="color:#808030; ">.</span>treasure<span style="color:#808030; ">.</span>transform<span style="color:#808030; ">.</span>position<span style="color:#808030; ">)</span> <span style="color:#808030; ">&lt;</span> blackboard<span style="color:#808030; ">.</span>dist2Steal<span style="color:#808030; ">)</span>
+            <span style="color:#800080; ">{</span>
+                animator<span style="color:#808030; ">.</span>GetComponent<span style="color:#808030; ">&lt;</span>UnityEngine<span style="color:#808030; ">.</span>AI<span style="color:#808030; ">.</span>NavMeshAgent<span style="color:#808030; ">&gt;</span><span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#808030; ">.</span>speed <span style="color:#808030; ">=</span> 1f<span style="color:#800080; ">;</span>
+                animator<span style="color:#808030; ">.</span>SetTrigger<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">near</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+            <span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+    <span style="color:#800080; ">}</span>
+<span style="color:#800080; ">}</span>
+</pre>
+

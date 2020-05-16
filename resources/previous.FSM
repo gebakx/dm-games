@@ -1,0 +1,163 @@
+{
+    "version": 2.85,
+    "type": "NodeCanvas.StateMachines.FSM",
+    "nodes": [
+        {
+            "_actionList": {
+                "executionMode": "ActionsRunInParallel",
+                "actions": [
+                    {
+                        "speed": {
+                            "_value": 1.0
+                        },
+                        "keepDistance": {
+                            "_value": 0.1
+                        },
+                        "minWanderDistance": {
+                            "_value": 5.0
+                        },
+                        "maxWanderDistance": {
+                            "_value": 20.0
+                        },
+                        "$type": "NodeCanvas.Tasks.Actions.Wander"
+                    }
+                ]
+            },
+            "_position": {
+                "x": 5164.0,
+                "y": 5170.0
+            },
+            "_name": "Wander",
+            "$type": "NodeCanvas.StateMachines.ActionState",
+            "$id": "2"
+        },
+        {
+            "_actionList": {
+                "executionMode": "ActionsRunInParallel",
+                "actions": [
+                    {
+                        "targetPosition": {
+                            "_name": "treasure",
+                            "_targetVariableID": "4aa5e5e3-01b9-4c45-b61c-1c9fef112807"
+                        },
+                        "speed": {
+                            "_value": 2.0
+                        },
+                        "keepDistance": {
+                            "_value": 0.1
+                        },
+                        "$type": "NodeCanvas.Tasks.Actions.MoveToPosition"
+                    }
+                ]
+            },
+            "_position": {
+                "x": 5465.0,
+                "y": 5296.0
+            },
+            "_name": "Approaching",
+            "$type": "NodeCanvas.StateMachines.ActionState",
+            "$id": "10"
+        },
+        {
+            "_actionList": {
+                "actions": [
+                    {
+                        "setTo": "Deactivate",
+                        "overrideAgent": {
+                            "_name": "treasure",
+                            "_targetVariableID": "4aa5e5e3-01b9-4c45-b61c-1c9fef112807"
+                        },
+                        "$type": "NodeCanvas.Tasks.Actions.SetObjectActive"
+                    }
+                ]
+            },
+            "_position": {
+                "x": 5638.0,
+                "y": 5388.0
+            },
+            "_name": "Steal",
+            "$type": "NodeCanvas.StateMachines.ActionState",
+            "$id": "17"
+        }
+    ],
+    "connections": [
+        {
+            "_condition": {
+                "vectorA": {
+                    "_name": "cop",
+                    "_targetVariableID": "495de276-d71d-4409-82d2-8002e5b9089e"
+                },
+                "vectorB": {
+                    "_name": "treasure",
+                    "_targetVariableID": "4aa5e5e3-01b9-4c45-b61c-1c9fef112807"
+                },
+                "comparison": "GreaterThan",
+                "distance": {
+                    "_name": "dist2Steal",
+                    "_targetVariableID": "77c2b268-238b-43fc-9ba2-f6949a9d18b0"
+                },
+                "$type": "NodeCanvas.Tasks.Conditions.CheckVectorDistance"
+            },
+            "_sourceNode": {
+                "$ref": "2"
+            },
+            "_targetNode": {
+                "$ref": "10"
+            },
+            "$type": "NodeCanvas.StateMachines.FSMConnection"
+        },
+        {
+            "_condition": {
+                "vectorA": {
+                    "_name": "cop",
+                    "_targetVariableID": "495de276-d71d-4409-82d2-8002e5b9089e"
+                },
+                "vectorB": {
+                    "_name": "treasure",
+                    "_targetVariableID": "4aa5e5e3-01b9-4c45-b61c-1c9fef112807"
+                },
+                "comparison": "LessThan",
+                "distance": {
+                    "_name": "dist2Steal",
+                    "_targetVariableID": "77c2b268-238b-43fc-9ba2-f6949a9d18b0"
+                },
+                "$type": "NodeCanvas.Tasks.Conditions.CheckVectorDistance"
+            },
+            "_sourceNode": {
+                "$ref": "10"
+            },
+            "_targetNode": {
+                "$ref": "2"
+            },
+            "$type": "NodeCanvas.StateMachines.FSMConnection"
+        },
+        {
+            "_condition": {
+                "checkTarget": {
+                    "_name": "treasure",
+                    "_targetVariableID": "4aa5e5e3-01b9-4c45-b61c-1c9fef112807"
+                },
+                "distance": {
+                    "_value": 2.0
+                },
+                "$type": "NodeCanvas.Tasks.Conditions.CheckDistanceToGameObject"
+            },
+            "_sourceNode": {
+                "$ref": "10"
+            },
+            "_targetNode": {
+                "$ref": "17"
+            },
+            "$type": "NodeCanvas.StateMachines.FSMConnection"
+        }
+    ],
+    "primeNode": {
+        "$ref": "2"
+    },
+    "localBlackboard": {
+        "_name": "Local Blackboard",
+        "_variables": {
+
+        }
+    }
+}

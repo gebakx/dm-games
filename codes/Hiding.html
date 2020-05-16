@@ -1,0 +1,21 @@
+
+<pre style="color:#000000;background:#ffffff;">﻿using System<span style="color:#808030; ">.</span>Collections<span style="color:#800080; ">;</span>
+<span style="color:#800000; font-weight:bold; ">using</span> System<span style="color:#808030; ">.</span>Collections<span style="color:#808030; ">.</span>Generic<span style="color:#800080; ">;</span>
+<span style="color:#800000; font-weight:bold; ">using</span> UnityEngine<span style="color:#800080; ">;</span>
+
+<span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">class</span> Hiding <span style="color:#808030; ">:</span> StateMachineBehaviour
+<span style="color:#800080; ">{</span>
+    Moves moves<span style="color:#800080; ">;</span>
+
+    <span style="color:#800000; font-weight:bold; ">override</span> <span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">void</span> OnStateEnter<span style="color:#808030; ">(</span>Animator animator<span style="color:#808030; ">,</span> AnimatorStateInfo stateInfo<span style="color:#808030; ">,</span> <span style="color:#800000; font-weight:bold; ">int</span> layerIndex<span style="color:#808030; ">)</span>
+    <span style="color:#800080; ">{</span>
+        moves <span style="color:#808030; ">=</span> animator<span style="color:#808030; ">.</span>GetComponent<span style="color:#808030; ">&lt;</span>Moves<span style="color:#808030; ">&gt;</span><span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>         
+    <span style="color:#800080; ">}</span>
+
+    <span style="color:#800000; font-weight:bold; ">override</span> <span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">void</span> OnStateUpdate<span style="color:#808030; ">(</span>Animator animator<span style="color:#808030; ">,</span> AnimatorStateInfo stateInfo<span style="color:#808030; ">,</span> <span style="color:#800000; font-weight:bold; ">int</span> layerIndex<span style="color:#808030; ">)</span>
+    <span style="color:#800080; ">{</span>
+        moves<span style="color:#808030; ">.</span>Hide<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+    <span style="color:#800080; ">}</span>
+<span style="color:#800080; ">}</span>
+</pre>
+

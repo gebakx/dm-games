@@ -1,0 +1,19 @@
+
+<pre style="color:#000000;background:#ffffff;"><span style="color:#800000; font-weight:bold; ">using</span> UnityEngine<span style="color:#800080; ">;</span>
+ 
+<span style="color:#800000; font-weight:bold; ">using</span> Pada1<span style="color:#808030; ">.</span>BBCore<span style="color:#800080; ">;</span>
+<span style="color:#800000; font-weight:bold; ">using</span> Pada1<span style="color:#808030; ">.</span>BBCore<span style="color:#808030; ">.</span>Framework<span style="color:#800080; ">;</span> 
+
+<span style="color:#808030; ">[</span>Condition<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">MyConditions/Is Cop Near?</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#808030; ">]</span>
+<span style="color:#808030; ">[</span>Help<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">Checks whether Cop is near the Treasure.</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#808030; ">]</span>
+<span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">class</span> IsCopNear <span style="color:#808030; ">:</span> ConditionBase
+<span style="color:#800080; ">{</span>
+    <span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">override</span> <span style="color:#800000; font-weight:bold; ">bool</span> Check<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span>
+    <span style="color:#800080; ">{</span>
+        GameObject cop <span style="color:#808030; ">=</span> GameObject<span style="color:#808030; ">.</span>Find<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">Cop</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+        GameObject treasure <span style="color:#808030; ">=</span> GameObject<span style="color:#808030; ">.</span>Find<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">Treasure</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+        <span style="color:#800000; font-weight:bold; ">return</span> Vector3<span style="color:#808030; ">.</span>Distance<span style="color:#808030; ">(</span>cop<span style="color:#808030; ">.</span>transform<span style="color:#808030; ">.</span>position<span style="color:#808030; ">,</span> treasure<span style="color:#808030; ">.</span>transform<span style="color:#808030; ">.</span>position<span style="color:#808030; ">)</span> <span style="color:#808030; ">&lt;</span> 10f<span style="color:#800080; ">;</span>
+    <span style="color:#800080; ">}</span>
+<span style="color:#800080; ">}</span> 
+</pre>
+

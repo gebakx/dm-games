@@ -1,0 +1,199 @@
+{
+    "version": 2.85,
+    "type": "NodeCanvas.StateMachines.FSM",
+    "nodes": [
+        {
+            "_actionList": {
+                "executionMode": "ActionsRunInParallel",
+                "actions": [
+                    {
+                        "speed": {
+                            "_value": 1.0
+                        },
+                        "keepDistance": {
+                            "_value": 0.1
+                        },
+                        "minWanderDistance": {
+                            "_value": 5.0
+                        },
+                        "maxWanderDistance": {
+                            "_value": 20.0
+                        },
+                        "$type": "NodeCanvas.Tasks.Actions.Wander"
+                    }
+                ]
+            },
+            "_position": {
+                "x": 5164.0,
+                "y": 5170.0
+            },
+            "_name": "Wander",
+            "$type": "NodeCanvas.StateMachines.ActionState",
+            "$id": "2"
+        },
+        {
+            "_actionList": {
+                "executionMode": "ActionsRunInParallel",
+                "actions": [
+                    {
+                        "targetPosition": {
+                            "_name": "treasure",
+                            "_targetVariableID": "26d9e7f8-e6a7-4b29-93c0-597661051e3c"
+                        },
+                        "speed": {
+                            "_value": 2.0
+                        },
+                        "keepDistance": {
+                            "_value": 0.1
+                        },
+                        "$type": "NodeCanvas.Tasks.Actions.MoveToPosition"
+                    }
+                ]
+            },
+            "_position": {
+                "x": 5465.0,
+                "y": 5296.0
+            },
+            "_name": "Approaching",
+            "$type": "NodeCanvas.StateMachines.ActionState",
+            "$id": "10"
+        },
+        {
+            "_actionList": {
+                "actions": [
+                    {
+                        "setTo": "Deactivate",
+                        "overrideAgent": {
+                            "_name": "treasure",
+                            "_targetVariableID": "26d9e7f8-e6a7-4b29-93c0-597661051e3c"
+                        },
+                        "$type": "NodeCanvas.Tasks.Actions.SetObjectActive"
+                    }
+                ]
+            },
+            "_position": {
+                "x": 5638.0,
+                "y": 5388.0
+            },
+            "_name": "Steal",
+            "$type": "NodeCanvas.StateMachines.ActionState",
+            "$id": "17"
+        },
+        {
+            "_actionList": {
+                "executionMode": "ActionsRunInParallel",
+                "actions": [
+                    {
+                        "method": {
+                            "_baseInfo": "Moves|Hide|System.Void",
+                            "_paramsInfo": ""
+                        },
+                        "parameters": [],
+                        "parameterIsByRef": [],
+                        "returnValue": {
+
+                        },
+                        "$type": "NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"
+                    }
+                ]
+            },
+            "_repeatStateActions": true,
+            "_position": {
+                "x": 5896.0,
+                "y": 5469.0
+            },
+            "_name": "Hiding",
+            "$type": "NodeCanvas.StateMachines.ActionState",
+            "$id": "22"
+        }
+    ],
+    "connections": [
+        {
+            "_condition": {
+                "vectorA": {
+                    "_name": "cop",
+                    "_targetVariableID": "a96db2ce-b1c4-4145-a5c4-9bacd3b8b825"
+                },
+                "vectorB": {
+                    "_name": "treasure",
+                    "_targetVariableID": "26d9e7f8-e6a7-4b29-93c0-597661051e3c"
+                },
+                "comparison": "GreaterThan",
+                "distance": {
+                    "_name": "dist2Steal",
+                    "_targetVariableID": "c3877dbe-2a41-42d1-b8b1-a9133470d15f"
+                },
+                "$type": "NodeCanvas.Tasks.Conditions.CheckVectorDistance"
+            },
+            "_sourceNode": {
+                "$ref": "2"
+            },
+            "_targetNode": {
+                "$ref": "10"
+            },
+            "$type": "NodeCanvas.StateMachines.FSMConnection"
+        },
+        {
+            "_condition": {
+                "vectorA": {
+                    "_name": "cop",
+                    "_targetVariableID": "a96db2ce-b1c4-4145-a5c4-9bacd3b8b825"
+                },
+                "vectorB": {
+                    "_name": "treasure",
+                    "_targetVariableID": "26d9e7f8-e6a7-4b29-93c0-597661051e3c"
+                },
+                "comparison": "LessThan",
+                "distance": {
+                    "_name": "dist2Steal",
+                    "_targetVariableID": "c3877dbe-2a41-42d1-b8b1-a9133470d15f"
+                },
+                "$type": "NodeCanvas.Tasks.Conditions.CheckVectorDistance"
+            },
+            "_sourceNode": {
+                "$ref": "10"
+            },
+            "_targetNode": {
+                "$ref": "2"
+            },
+            "$type": "NodeCanvas.StateMachines.FSMConnection"
+        },
+        {
+            "_condition": {
+                "checkTarget": {
+                    "_name": "treasure",
+                    "_targetVariableID": "26d9e7f8-e6a7-4b29-93c0-597661051e3c"
+                },
+                "distance": {
+                    "_value": 2.0
+                },
+                "$type": "NodeCanvas.Tasks.Conditions.CheckDistanceToGameObject"
+            },
+            "_sourceNode": {
+                "$ref": "10"
+            },
+            "_targetNode": {
+                "$ref": "17"
+            },
+            "$type": "NodeCanvas.StateMachines.FSMConnection"
+        },
+        {
+            "_sourceNode": {
+                "$ref": "17"
+            },
+            "_targetNode": {
+                "$ref": "22"
+            },
+            "$type": "NodeCanvas.StateMachines.FSMConnection"
+        }
+    ],
+    "primeNode": {
+        "$ref": "2"
+    },
+    "localBlackboard": {
+        "_name": "Local Blackboard",
+        "_variables": {
+
+        }
+    }
+}
