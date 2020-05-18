@@ -1113,6 +1113,63 @@ to the AI agent GameObject
 .footnote[.red[*] made with .red[[hightlighting](https://tohtml.com/csharp/)]]
 
 ---
+
+# AI Planner: Debugging 
+
+- `Window - AI - Plan Visualizer`
+
+.center[![:scale 70%](figures/PlanVisualizer.png)]
+
+- [Source & documentation](https://docs.unity3d.com/Packages/com.unity.ai.planner@0.2/manual/PlanVisualizer.html)
+
+---
+
+# AI Planner: Advanced Usage I
+
+Example: .blue[Non linear behaviour of Robber]
+
+### Getting access to the traits in scripts
+
+1. Go to `Assets - Planner - Traits`
+
+2. `Create - Assembly Definition`
+
+3. `Inspector - Version Defines - Resource - generated.ai.planner.staterepresentation`
+
+### Changing Actions from Inspector
+
+- Approach: `Cost/Reward: -1`
+
+- Steal: `Cost/Reward: 5`
+
+- Wander: `Cost/Reward: -2`
+
+---
+
+# AI Planner: Advanced Usage II
+
+.cols5050[
+.col1[
+### Changing Decision Controller of Robber
+
+- Approach: <br>
+`Method - roberGO` <br>
+`Next State Update`
+
+### C# code
+
+- [view](codes/plannerCallbacks2.html).red[*] / [cs](codes/plannerCallbacks2.cs)
+
+- [TraitComponent](https://docs.unity3d.com/Packages/com.unity.ai.planner@0.2/api/UnityEngine.AI.Planner.DomainLanguage.TraitBased.TraitComponent.html)
+]
+.col2[
+![:scale 90%](figures/dcRobber.png)
+]]
+
+
+.footnote[.red[*] made with .red[[hightlighting](https://tohtml.com/csharp/)]]
+
+---
 class: left, middle, inverse
 
 # Outline

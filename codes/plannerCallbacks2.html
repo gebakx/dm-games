@@ -1,0 +1,64 @@
+
+<pre style="color:#000000;background:#ffffff;">﻿using System<span style="color:#808030; ">.</span>Collections<span style="color:#800080; ">;</span>
+<span style="color:#800000; font-weight:bold; ">using</span> System<span style="color:#808030; ">.</span>Collections<span style="color:#808030; ">.</span>Generic<span style="color:#800080; ">;</span>
+<span style="color:#800000; font-weight:bold; ">using</span> UnityEngine<span style="color:#800080; ">;</span>
+
+<span style="color:#800000; font-weight:bold; ">using</span> Unity<span style="color:#808030; ">.</span>AI<span style="color:#808030; ">.</span>Planner<span style="color:#800080; ">;</span>
+<span style="color:#800000; font-weight:bold; ">using</span> UnityEngine<span style="color:#808030; ">.</span>AI<span style="color:#808030; ">.</span>Planner<span style="color:#808030; ">.</span>Controller<span style="color:#800080; ">;</span>
+<span style="color:#800000; font-weight:bold; ">using</span> Unity<span style="color:#808030; ">.</span>AI<span style="color:#808030; ">.</span>Planner<span style="color:#808030; ">.</span>DomainLanguage<span style="color:#808030; ">.</span>TraitBased<span style="color:#800080; ">;</span>
+<span style="color:#800000; font-weight:bold; ">using</span> UnityEngine<span style="color:#808030; ">.</span>AI<span style="color:#808030; ">.</span>Planner<span style="color:#808030; ">.</span>DomainLanguage<span style="color:#808030; ">.</span>TraitBased<span style="color:#800080; ">;</span>
+<span style="color:#800000; font-weight:bold; ">using</span> Generated<span style="color:#808030; ">.</span>AI<span style="color:#808030; ">.</span>Planner<span style="color:#808030; ">.</span>StateRepresentation<span style="color:#800080; ">;</span>
+
+
+<span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">class</span> plannerCallbacks <span style="color:#808030; ">:</span> MonoBehaviour
+<span style="color:#800080; ">{</span>
+    Moves moves<span style="color:#800080; ">;</span>
+    UnityEngine<span style="color:#808030; ">.</span>AI<span style="color:#808030; ">.</span>NavMeshAgent agent<span style="color:#800080; ">;</span>
+
+    <span style="color:#800000; font-weight:bold; ">void</span> Start<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span>
+    <span style="color:#800080; ">{</span>
+        moves <span style="color:#808030; ">=</span> <span style="color:#800000; font-weight:bold; ">this</span><span style="color:#808030; ">.</span>GetComponent<span style="color:#808030; ">&lt;</span>Moves<span style="color:#808030; ">&gt;</span><span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+        agent <span style="color:#808030; ">=</span> <span style="color:#800000; font-weight:bold; ">this</span><span style="color:#808030; ">.</span>GetComponent<span style="color:#808030; ">&lt;</span>UnityEngine<span style="color:#808030; ">.</span>AI<span style="color:#808030; ">.</span>NavMeshAgent<span style="color:#808030; ">&gt;</span><span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+    <span style="color:#800080; ">}</span>
+
+    <span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">void</span> Steal<span style="color:#808030; ">(</span>GameObject treasure<span style="color:#808030; ">)</span>
+    <span style="color:#800080; ">{</span>
+        Debug<span style="color:#808030; ">.</span>Log<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">Steal</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+        treasure<span style="color:#808030; ">.</span>GetComponent<span style="color:#808030; ">&lt;</span>Renderer<span style="color:#808030; ">&gt;</span><span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#808030; ">.</span>enabled <span style="color:#808030; ">=</span> <span style="color:#800000; font-weight:bold; ">false</span><span style="color:#800080; ">;</span>
+    <span style="color:#800080; ">}</span>
+
+    <span style="color:#800000; font-weight:bold; ">public</span> IEnumerator Seek<span style="color:#808030; ">(</span>GameObject treasure<span style="color:#808030; ">,</span> GameObject copGO<span style="color:#808030; ">,</span> GameObject robberGO<span style="color:#808030; ">)</span>
+    <span style="color:#800080; ">{</span>
+        Debug<span style="color:#808030; ">.</span>Log<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">Approach</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+        agent<span style="color:#808030; ">.</span>SetDestination<span style="color:#808030; ">(</span>treasure<span style="color:#808030; ">.</span>transform<span style="color:#808030; ">.</span>position<span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+        <span style="color:#800000; font-weight:bold; ">while</span> <span style="color:#808030; ">(</span><span style="color:#808030; ">(</span>Vector3<span style="color:#808030; ">.</span>Distance<span style="color:#808030; ">(</span>treasure<span style="color:#808030; ">.</span>transform<span style="color:#808030; ">.</span>position<span style="color:#808030; ">,</span> transform<span style="color:#808030; ">.</span>position<span style="color:#808030; ">)</span> <span style="color:#808030; ">&gt;</span> 2f<span style="color:#808030; ">)</span> &amp;&amp;
+               <span style="color:#808030; ">(</span>Vector3<span style="color:#808030; ">.</span>Distance<span style="color:#808030; ">(</span>treasure<span style="color:#808030; ">.</span>transform<span style="color:#808030; ">.</span>position<span style="color:#808030; ">,</span> copGO<span style="color:#808030; ">.</span>transform<span style="color:#808030; ">.</span>position<span style="color:#808030; ">)</span> <span style="color:#808030; ">&gt;</span><span style="color:#808030; ">=</span> 10f<span style="color:#808030; ">)</span><span style="color:#808030; ">)</span>
+            <span style="color:#800000; font-weight:bold; ">yield return</span> <span style="color:#800000; font-weight:bold; ">null</span><span style="color:#800080; ">;</span>
+        <span style="color:#800000; font-weight:bold; ">if</span> <span style="color:#808030; ">(</span>Vector3<span style="color:#808030; ">.</span>Distance<span style="color:#808030; ">(</span>treasure<span style="color:#808030; ">.</span>transform<span style="color:#808030; ">.</span>position<span style="color:#808030; ">,</span> copGO<span style="color:#808030; ">.</span>transform<span style="color:#808030; ">.</span>position<span style="color:#808030; ">)</span> <span style="color:#808030; ">&lt;</span> 10f<span style="color:#808030; ">)</span>
+        <span style="color:#800080; ">{</span> <span style="color:#696969; ">// Go to Wander: cop.farAway</span>
+            TraitComponent tc <span style="color:#808030; ">=</span> copGO<span style="color:#808030; ">.</span>GetComponent<span style="color:#808030; ">&lt;</span>TraitComponent<span style="color:#808030; ">&gt;</span><span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+            ITraitData tdt <span style="color:#808030; ">=</span> tc<span style="color:#808030; ">.</span>GetTraitData<span style="color:#808030; ">&lt;</span>Cop<span style="color:#808030; ">&gt;</span><span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+            tdt<span style="color:#808030; ">.</span>SetValue<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">farAway</span><span style="color:#800000; ">"</span><span style="color:#808030; ">,</span> <span style="color:#800000; font-weight:bold; ">false</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+        <span style="color:#800080; ">}</span>
+        <span style="color:#800000; font-weight:bold; ">else</span>
+        <span style="color:#800080; ">{</span> <span style="color:#696969; ">// Go to Steal: robber.ready2steal</span>
+            TraitComponent tc <span style="color:#808030; ">=</span> robberGO<span style="color:#808030; ">.</span>GetComponent<span style="color:#808030; ">&lt;</span>TraitComponent<span style="color:#808030; ">&gt;</span><span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+            Debug<span style="color:#808030; ">.</span>Log<span style="color:#808030; ">(</span>tc<span style="color:#808030; ">.</span>name<span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+            ITraitData tdt <span style="color:#808030; ">=</span> tc<span style="color:#808030; ">.</span>GetTraitData<span style="color:#808030; ">&lt;</span>Robber<span style="color:#808030; ">&gt;</span><span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+            tdt<span style="color:#808030; ">.</span>SetValue<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">ready2steal</span><span style="color:#800000; ">"</span><span style="color:#808030; ">,</span> <span style="color:#800000; font-weight:bold; ">true</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+            Debug<span style="color:#808030; ">.</span>Log<span style="color:#808030; ">(</span>tdt<span style="color:#808030; ">.</span>GetValue<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">ready2steal</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+        <span style="color:#800080; ">}</span>
+    <span style="color:#800080; ">}</span>
+
+    <span style="color:#800000; font-weight:bold; ">public</span> IEnumerator Wander<span style="color:#808030; ">(</span>GameObject cop<span style="color:#808030; ">,</span> GameObject treasure<span style="color:#808030; ">)</span>
+    <span style="color:#800080; ">{</span>
+        Debug<span style="color:#808030; ">.</span>Log<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">Wander</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+        <span style="color:#800000; font-weight:bold; ">while</span> <span style="color:#808030; ">(</span>Vector3<span style="color:#808030; ">.</span>Distance<span style="color:#808030; ">(</span>treasure<span style="color:#808030; ">.</span>transform<span style="color:#808030; ">.</span>position<span style="color:#808030; ">,</span> cop<span style="color:#808030; ">.</span>transform<span style="color:#808030; ">.</span>position<span style="color:#808030; ">)</span> <span style="color:#808030; ">&lt;</span> 10f<span style="color:#808030; ">)</span>
+        <span style="color:#800080; ">{</span>
+            moves<span style="color:#808030; ">.</span>Wander<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+            <span style="color:#800000; font-weight:bold; ">yield return</span> <span style="color:#800000; font-weight:bold; ">null</span><span style="color:#800080; ">;</span>
+        <span style="color:#800080; ">}</span>
+    <span style="color:#800080; ">}</span>    
+<span style="color:#800080; ">}</span>
+</pre>
+
