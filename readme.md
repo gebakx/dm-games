@@ -29,8 +29,6 @@ class: left, middle, inverse
 
 * Planning Systems
 
-* Rule-Based Systems
-
 * References
 
 ---
@@ -90,8 +88,6 @@ class: left, middle, inverse
 * Behaviour Trees
 
 * Planning Systems
-
-* Rule-Based Systems
 
 * References
 
@@ -156,7 +152,7 @@ public class DelegateScript : MonoBehaviour {
 
 # FSMs in Unity
 
-[Scene](resources/dm1-handout.unitypackage):
+[Scene](resources/dm-handout.unitypackage):
 
 .center[![:scale 60%](figures/scene.png)]
 
@@ -239,8 +235,6 @@ class: left, middle, inverse
 
 * Planning Systems
 
-* Rule-Based Systems
-
 * References
 
 ---
@@ -275,7 +269,7 @@ class: left, middle, inverse
 
 # TODO
 
-.blue[Robber] behaviour: [handout](resources/dm1-handout.unitypackage)
+.blue[Robber] behaviour: [handout](resources/dm-handout.unitypackage)
 
 ### Starting
 
@@ -336,8 +330,6 @@ class: left, middle, inverse
 
 * Planning Systems
 
-* Rule-Based Systems
-
 * References
 
 ---
@@ -371,8 +363,6 @@ class: left, middle, inverse
 * Behaviour Trees
 
 * Planning Systems
-
-* Rule-Based Systems
 
 * References
 
@@ -426,8 +416,6 @@ class: left, middle, inverse
   - Behaviour Bricks
 
 * Planning Systems
-
-* Rule-Based Systems
 
 * References
 
@@ -549,15 +537,13 @@ class: left, middle, inverse
 
 * Planning Systems
 
-* Rule-Based Systems
-
 * References
 
 ---
 
 # TODO
 
-- Add Component - Behaviour Tree Owner ([handout](resources/dm1-handout.unitypackage))
+- Add Component - Behaviour Tree Owner ([handout](resources/dm-handout.unitypackage))
 
 ![:scale 80%](figures/btncRobber.png)
 
@@ -610,8 +596,6 @@ class: left, middle, inverse
 
 * Planning Systems
 
-* Rule-Based Systems
-
 * References
 
 ---
@@ -623,7 +607,7 @@ class: left, middle, inverse
 .cols5050[
 .col1[
 .blue[Starting]:
-- [Handout](resources/dm1-handout.unitypackage)
+- [Handout](resources/dm-handout.unitypackage)
 - Editor: <br> `Window - Behavior Bricks - Editor`
 - Robber: <br> `Add Component - Behavior executor component`
 
@@ -681,8 +665,6 @@ class: left, middle, inverse
   - Goal Oriented Action Planning
 
   - AI Planner
-
-* Rule-Based Systems
 
 * References
 
@@ -846,8 +828,6 @@ class: left, middle, inverse
 
   - AI Planner
 
-* Rule-Based Systems
-
 * References
 
 ---
@@ -899,8 +879,7 @@ increasing the number of actions and goals it becomes quickly inefficient
 - .blue[A*] <br>
 perhaps distance heuristic cannot be formulated
 
-- .blue[Dijkstra] <br>
-...
+- .blue[Dijkstra]: usual solution
 
 ---
 
@@ -953,8 +932,6 @@ class: left, middle, inverse
   - .brown[Goal Oriented Action Planning]
 
   - .cyan[AI Planner]
-
-* Rule-Based Systems
 
 * References
 
@@ -1184,27 +1161,6 @@ class: left, middle, inverse
 
 * .brown[Planning Systems]
 
-* .cyan[Rule-Based Systems]
-
-* References
-
----
-class: left, middle, inverse
-
-# Outline
-
-* .brown[Introduction]
-
-* .brown[Finite State Machines]
-
-* .brown[Decision Trees]
-
-* .brown[Behaviour Trees]
-
-* .brown[Planning Systems]
-
-* .brown[Rule-Based Systems]
-
 * .cyan[References]
 
 ---
@@ -1223,11 +1179,13 @@ class: left, middle, inverse
 
 - Ricard Pillosu. _Previous year slides of the AI course_, 2019. 
 
----
+
+<!--
 
 # Pendent
 
-- [Unite 2014 - Practical AI in Unity](https://www.youtube.com/watch?v=hhByGZZbcOc), 59:44, 2014. (HFSM, BT) [Github](https://github.com/AngryAnt/PracticalAIinUnity)
+- [Unite 2014 - Practical AI in Unity](https://www.youtube.com/watch?v=hhByGZZbcOc), 59:44, 2014. 
+- (HFSM, BT) [Github](https://github.com/AngryAnt/PracticalAIinUnity)
 
 - AI Planner
     1. Modificació per bucle wander + approach
@@ -1237,4 +1195,4 @@ class: left, middle, inverse
     2. Implementació exemple llibre amb clojure sense unity
     3. Implementació Robber Clojure + arcadia 
     4. Pel final de curs (després de ML)
-
+-->
