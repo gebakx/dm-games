@@ -35,7 +35,7 @@ class: left, middle, inverse
 
 # GameAI: the Model
 
-.center[![:scale 60%](figures/gameAI.png)]
+.center[![:scale 60%](figures/esquema.png)]
 
 .footnote[.red[(Millington, 2019)]]
 
