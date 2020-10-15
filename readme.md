@@ -154,7 +154,7 @@ public class DelegateScript : MonoBehaviour {
 
 [Scene](resources/dm-handout.unitypackage):
 
-.center[![:scale 60%](figures/scene.png)]
+.center[[![:scale 60%](figures/scene.png)](figures/robber.mkv)]
 
 .blue[Task]: FSM for the *robber*:
 
@@ -1138,10 +1138,15 @@ Example: .blue[Non linear behaviour of Robber]
 - [view](codes/plannerCallbacks2.html).red[*] / [cs](codes/plannerCallbacks2.cs)
 
 - [TraitComponent](https://docs.unity3d.com/Packages/com.unity.ai.planner@0.2/api/UnityEngine.AI.Planner.DomainLanguage.TraitBased.TraitComponent.html)
+
+### The result
+
+- [Robber video](figures/robberGOAP.mkv)
 ]
 .col2[
 ![:scale 90%](figures/dcRobber.png)
 ]]
+
 
 
 .footnote[.red[*] made with .red[[hightlighting](https://tohtml.com/csharp/)]]
