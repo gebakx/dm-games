@@ -267,37 +267,6 @@ class: left, middle, inverse
 
 ---
 
-# TODO
-
-.blue[Robber] behaviour: [handout](resources/dm-handout.unitypackage)
-
-### Starting
-
-1. Add component _FSM Owner_
-2. Create New - FSM
-3. In the NodeCanvas Editor - Right Button - Action State
-4. Assign Action Task
-
-### Action Tasks
-
-- Movement - Pathfinding - Seek
-- Movement - Pathfinding - Wander
-- Script Control - Multiplatform - Execute Function
-- GameObject - Set Visibility
-
-### Condition Tasks
-
-- Blackboard - Check Vector Distance
-- GameObject - Target Within Distance
-
----
-
-# Solution
-
-![:scale 90%](figures/FSMNodeCanvas.png)
-
----
-
 # FSM with Unity's Animator
 
 ![:scale 90%](figures/fsm.png)
